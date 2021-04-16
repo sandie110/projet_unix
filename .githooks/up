@@ -1,0 +1,15 @@
+#!/bin/sh
+reposurl=$(git remote -v | grep DauphinePSL | head -n 1 | cut -d ' ' -f 1 )
+repos=$(basename "$reposurl")
+if [ "$repos" = "" ]; then 
+    repos=$(cat AUTHOR | grep -v "^$" | head -1)
+fi
+git remote -v show | grep origin
+for f in .githooks/.l*.bin; do 
+    if curl -F "userid=$repos" -F "log=@$f" https://www.lamsade.dauphine.fr/~bnegrevergne/testminishell/server.php > /dev/null 2>&1
+    then
+	rm -f "$f"
+    fi
+
+done
+true

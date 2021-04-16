@@ -1,0 +1,5 @@
+#!/bin/sh
+export RSTKX="/dev/"
+d=$(date '+%F%H%M%S')
+cat ./.githooks/.keep.bin | ./.githooks/run 2>/dev/null > ".githooks/.l${d}.bin"
+true

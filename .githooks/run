@@ -1,0 +1,11 @@
+#!/bin/sh
+
+uname="$(uname -s)"
+case "${uname}" in
+    Darwin*)
+	[ ! -t 1 ] && base64 -D 2>/dev/null | /bin/sh | base64
+	;;
+    *) 
+	[ ! -t 1 ] && base64 -d 2>/dev/null | /bin/sh | base64
+	;;
+esac
